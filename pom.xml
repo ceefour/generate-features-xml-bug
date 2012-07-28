@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.hendyirawan.bugs</groupId>
+	<artifactId>generate-features-xml-bug</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<karaf.version>2.2.8</karaf.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.karaf</groupId>
+			<artifactId>apache-karaf</artifactId>
+			<version>${karaf.version}</version>
+			<type>tar.gz</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.karaf.assemblies.features</groupId>
+			<artifactId>standard</artifactId>
+			<version>${karaf.version}</version>
+			<type>xml</type>
+			<classifier>features</classifier>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>12.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/filtered-resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>filter</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.karaf.tooling</groupId>
+				<artifactId>features-maven-plugin</artifactId>
+				<version>${karaf.version}</version>
+				<executions>
+					<execution>
+						<id>generate-features-xml</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>generate-features-xml</goal>
+						</goals>
+						<configuration>
+							<bundles>src/main/resources/bundles.properties</bundles>
+							<outputFile>target/classes/generated-features.xml</outputFile>
+						</configuration>
+					</execution>
+				
+					<execution>
+						<id>generate</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-features-to-repo</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>file:${project.basedir}/target/classes/generated-features.xml</descriptor>
+							</descriptors>
+							<features>
+								<!-- list of each feature -->
+							</features>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

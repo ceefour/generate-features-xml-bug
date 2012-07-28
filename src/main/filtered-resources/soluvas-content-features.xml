@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="soluvas-content" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+
+	<feature name="oss-deps" description="OSS dependencies" version="1.0.0" resolver="(obr)">
+		<bundle dependency="true" start-level="50">mvn:com.google.guava/guava/12.0</bundle>
+		<bundle dependency="true" start-level="50">mvn:commons-io/commons-io/2.4</bundle>
+		<bundle dependency="true" start-level="50">mvn:org.apache.commons/commons-lang3/3.1</bundle>
+		<bundle dependency="true" start-level="50">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.stringtemplate/4.0.2_1</bundle>
+		<bundle dependency="true" start-level="50">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jaxb-api-2.2/2.0.0</bundle>
+		<bundle dependency="true" start-level="50">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/2.2.4_2</bundle>
+		<bundle dependency="true" start-level="50">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xstream/1.4.2_2</bundle>
+	</feature>
+
+	<feature name="soluvas-content-core" description="Soluvas Content Core" version="${project.version}" resolver="(obr)">
+		<feature version="1.0.0">oss-deps</feature>
+	    <bundle dependency="true" start-level="50">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.tagsoup/1.2.1_1</bundle>
+	    <bundle dependency="true" start-level="50">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.dom4j/1.6.1_5</bundle>
+	    <bundle dependency="true" start-level="50">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxen/1.1.3_1</bundle>
+	    <bundle start-level="60">mvn:com.soluvas/com.soluvas.content.core/${project.version}</bundle>
+	</feature>
+	<feature name="soluvas-content-shell" description="Soluvas Content Shell" version="${project.version}" resolver="(obr)">
+		<feature version="${project.version}">soluvas-content-core</feature>
+	    <bundle start-level="60">mvn:com.soluvas/com.soluvas.content.shell/${project.version}</bundle>
+	</feature>
+	<feature name="soluvas-content-magento" description="Soluvas Content - Magento Connector" version="${project.version}" resolver="(obr)">
+		<feature version="${project.version}">soluvas-content-core</feature>
+	    <bundle dependency="true" start-level="50">mvn:mysql/mysql-connector-java/5.1.21</bundle>
+	    <bundle start-level="60">mvn:com.soluvas/com.soluvas.content.magento/${project.version}</bundle>
+	</feature>
+
+</features>

@@ -1,0 +1,128 @@
+<assembly>
+
+	<id>bin</id>
+
+	<formats>
+		<format>dir</format>
+<!-- 		<format>tar.gz</format> -->
+	</formats>
+
+	<fileSets>
+
+		<!-- Expanded Karaf Standard Distribution -->
+		<fileSet>
+			<directory>target/dependencies/apache-karaf-2.2.8</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+				<exclude>**/demos/**</exclude>
+				<exclude>bin/**</exclude>
+				<exclude>etc/system.properties</exclude>
+				<exclude>etc/users.properties</exclude>
+				<exclude>etc/org.apache.karaf.features.cfg</exclude>
+				<exclude>etc/org.ops4j.pax.logging.cfg</exclude>
+				<exclude>LICENSE</exclude>
+				<exclude>NOTICE</exclude>
+				<exclude>README</exclude>
+				<exclude>RELEASE-NOTES</exclude>
+				<exclude>karaf-manual*.html</exclude>
+				<exclude>karaf-manual*.pdf</exclude>
+				
+				<!-- additional excludes for uber-customized Karaf -->
+				<exclude>etc/startup.properties</exclude>
+				<exclude>etc/config.properties</exclude>
+				<exclude>system/**</exclude><!-- exclude system/ so we provide entirely bundles we need -->
+			</excludes>
+		</fileSet>
+		
+		<fileSet>
+			<!-- Required kernel bundles -->
+			<directory>target/dependencies/apache-karaf-2.2.8</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>system/org/apache/karaf/admin/**</include>
+				<include>system/org/apache/karaf/diagnostic/**</include>
+				<include>system/org/apache/karaf/deployer/**</include>
+			</includes>
+		</fileSet>
+
+		<!-- Our own modifications to Karaf -->
+		<fileSet>
+			<directory>target/dependencies/apache-karaf-extras</directory>
+			<outputDirectory>/</outputDirectory>
+		</fileSet>
+
+		<!-- Copy over bin/* separately to get the correct file mode -->
+		<fileSet>
+			<directory>target/dependencies/apache-karaf-2.2.8</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>bin/admin</include>
+				<include>bin/karaf</include>
+				<include>bin/start</include>
+				<include>bin/stop</include>
+			</includes>
+			<fileMode>0755</fileMode>
+		</fileSet>
+
+		<!-- Copy over jar files -->
+		<fileSet>
+			<directory>target/dependencies</directory>
+			<includes>
+				<include>com.soluvas.*.jar</include>
+				<include>org.soluvas.*.jar</include>
+			</includes>
+			<outputDirectory>/lib/</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>src/main/distribution</directory>
+			<outputDirectory>/</outputDirectory>
+			<fileMode>0644</fileMode>
+		</fileSet>
+		<fileSet>
+			<directory>target/classes/etc</directory>
+			<outputDirectory>/etc/</outputDirectory>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0644</fileMode>
+		</fileSet>
+
+		<fileSet>
+			<directory>target/features-repo</directory>
+			<outputDirectory>/system</outputDirectory>
+		</fileSet>
+
+	</fileSets>
+
+	<files>
+<!-- 		<file> -->
+<!-- Custom launcher -->
+<!-- 			<source>target/dependencies/apache-karaf-2.2.8/bin/karaf</source> -->
+<!-- 			<outputDirectory>/bin/</outputDirectory> -->
+<!-- 			<destName>my-custom</destName> -->
+<!-- 			<fileMode>0755</fileMode> -->
+<!-- 			<lineEnding>unix</lineEnding> -->
+<!-- 		</file> -->
+		<file>
+			<source>target/classes/soluvas-standard-2.2.8.1-features.xml</source>
+			<outputDirectory>/system/com/soluvas/soluvas-standard/2.2.8.1</outputDirectory>
+			<destName>soluvas-standard-2.2.8.1-features.xml</destName>
+			<fileMode>0644</fileMode>
+			<lineEnding>unix</lineEnding>
+		</file>
+		<file>
+			<source>target/classes/soluvas-enterprise-2.2.8.1-features.xml</source>
+			<outputDirectory>/system/com/soluvas/soluvas-enterprise/2.2.8.1</outputDirectory>
+			<destName>soluvas-enterprise-2.2.8.1-features.xml</destName>
+			<fileMode>0644</fileMode>
+			<lineEnding>unix</lineEnding>
+		</file>
+		<file>
+			<source>target/classes/soluvas-content-features.xml</source>
+			<outputDirectory>/system/com/soluvas/soluvas-content-features/1.0.0-SNAPSHOT</outputDirectory>
+			<destName>soluvas-content-features-1.0.0-SNAPSHOT-features.xml</destName>
+			<fileMode>0644</fileMode>
+			<lineEnding>unix</lineEnding>
+		</file>
+	</files>
+
+</assembly>

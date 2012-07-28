@@ -1,0 +1,61 @@
+h1. org.apache.karaf.tooling : features-maven-plugin : generate-features-xml bug test
+
+*generate-features-xml* does not generate anything (and prints out no warnings/errors/etc.).
+
+Therefore *add-features-to-repo* is not working.
+
+Also, what is the format of @bundles.properties@ file ?
+
+bc. ceefour@annafi:~/patch/generate-features-xml-bug$ mvn clean generate-resources
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building generate-features-xml-bug 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ generate-features-xml-bug ---
+[INFO] Deleting /home/ceefour/patch/generate-features-xml-bug/target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (filter) @ generate-features-xml-bug ---
+[debug] execute contextualize
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] >>> features-maven-plugin:2.2.8:generate-features-xml (generate-features-xml) @ generate-features-xml-bug >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (filter) @ generate-features-xml-bug ---
+[debug] execute contextualize
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] >>> features-maven-plugin:2.2.8:add-features-to-repo (generate) @ generate-features-xml-bug >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (filter) @ generate-features-xml-bug ---
+[debug] execute contextualize
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] <<< features-maven-plugin:2.2.8:add-features-to-repo (generate) @ generate-features-xml-bug <<<
+[INFO] 
+[INFO] --- features-maven-plugin:2.2.8:add-features-to-repo (generate) @ generate-features-xml-bug ---
+[INFO] Copying bundle: org.apache.karaf.assemblies.features:standard:xml:features:2.2.8
+[INFO] Copying bundle: org.apache.karaf.assemblies.features:enterprise:xml:features:2.2.8
+[INFO] Copying bundle: org.apache.karaf.assemblies.features:enterprise:xml:features:2.2.8
+[INFO] Copying bundle: org.apache.karaf.assemblies.features:standard:xml:features:2.2.8
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.944s
+[INFO] Finished at: Sat Jul 28 16:23:14 WIT 2012
+[INFO] Final Memory: 15M/213M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.karaf.tooling:features-maven-plugin:2.2.8:add-features-to-repo (generate) on project generate-features-xml-bug: Error populating repository: /home/ceefour/patch/generate-features-xml-bug/target/classes/generated-features.xml (No such file or directory) -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
